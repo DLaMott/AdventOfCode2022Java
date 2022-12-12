@@ -35,7 +35,6 @@ public class Day4 {
     }
 
 
-
     public static int isEngulfed(List<String> elf1, List<String> elf2){
 
         int sum = 0;
@@ -49,20 +48,41 @@ public class Day4 {
             int lower2 = Integer.parseInt(section2[0]);
             int upper2 = Integer.parseInt(section2[1]);
 
-            if(checkRange(lower1, upper1, lower2, upper2)){
+           List<Integer> ie = lowerListBuilder(lower1, upper1);
+           List<Integer> ie2 =  lowerListBuilder(lower2, upper2);
+
+           // Part 1
+
+            if(ie.containsAll(ie2) || ie2.containsAll(ie)){
+                //sum++;
+            }
+
+            // Part two
+            if(ie.stream().anyMatch(ie2::contains)){
                 sum++;
             }
+
+
         }
         return sum;
     }
 
-    public static boolean checkRange(int lower1, int upper1, int lower2, int upper2){
-       // (s1 <= e2) && (s2 <= e1)
+    public static List<Integer> lowerListBuilder(int low, int high){
 
-        // first 6-95 second 6-94
-        return (lower1 <= lower2) && (upper1 <= upper2) || (lower2 >= lower1) && (upper2 >= lower1) ;
+        int start = low;
+
+        List<Integer> idk = new ArrayList<>();
+
+        if(low - high == 0){
+            idk.add(low);
+        }
+
+        for(int i = start; i <= high; i++){
+            idk.add(low++);
+
+        }
+
+    return idk;
 
     }
-
-
 }
